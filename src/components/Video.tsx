@@ -13,7 +13,7 @@ export function Video({ videoId }: Readonly<VideoProps>) {
 
   return (
     <Container>
-      <div className="relative w-full h-[500px] max-w-4xl mx-auto overflow-hidden lg:mb-20 rounded-2xl bg-indigo-300 cursor-pointer bg-gradient-to-tr from-purple-400 to-indigo-700">
+      <div className="relative w-full h-[500px] max-w-4xl mx-auto overflow-hidden lg:mb-20 rounded-2xl bg-[#ED2939] cursor-pointer bg-gradient-to-tr from-[#ED2939] to-[#C62631]">
         {!playVideo && (
           <button
             onClick={() => setPlayVideo(!playVideo)}
@@ -21,25 +21,22 @@ export function Video({ videoId }: Readonly<VideoProps>) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-16 h-16  lg:w-28 lg:h-28"
+              className="w-16 h-16 lg:w-28 lg:h-28"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                clipRule="evenodd"
-              />
+              <circle cx="10" cy="10" r="10" className="text-white fill-current" />
+              <polygon points="8,6 14,10 8,14" fill="#ED2939" />
             </svg>
             <span className="sr-only">Play Video</span>
           </button>
         )}
         {playVideo && (
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${videoId}?controls=0&autoplay=1`}
+            src={`https://www.youtube.com/embed/TjXZPJnzzbM`}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            className="w-full h-full aspect-video"
+            className="w-full h-full border-none"
           ></iframe>
         )}
       </div>

@@ -1,60 +1,59 @@
 import {
-  FaceSmileIcon,
-  ChartBarSquareIcon,
-  CursorArrowRaysIcon,
-  DevicePhoneMobileIcon,
-  AdjustmentsHorizontalIcon,
-  SunIcon,
+  CurrencyDollarIcon,
+  ShieldCheckIcon,
+  ClipboardDocumentCheckIcon,
+  TrophyIcon,
+  CalendarDaysIcon,
+  BanknotesIcon,
 } from "@heroicons/react/24/solid";
 
-import benefitOneImg from "../../public/img/benefit-one.png";
-import benefitTwoImg from "../../public/img/benefit-two.png";
+import benefitOneImg from "../../public/img/diego_chase_photo.jpg";
+import benefitTwoImg from "../../public/img/futsal_court.jpg";
 
 const benefitOne = {
-  title: "Highlight your benefits",
-  desc: "You can use this space to highlight your first benefit or a feature of your product. It can also contain an image or Illustration like in the example along with some bullet points.",
-  image: benefitOneImg,
+  title: "Affordable Pricing for All Teams",
+  desc: "We believe soccer should be accessible to everyone. Our simple, transparent pricing ensures no hidden fees or surprises—just pure soccer enjoyment.",
+  image: benefitOneImg, // Ensure the image corresponds to this feature or update it accordingly
   bullets: [
     {
-      title: "Understand your customers",
-      desc: "Then explain the first point breifly in one or two lines.",
-      icon: <FaceSmileIcon />,
+      title: "Entry Fees",
+      desc: "Price per team entry: $300. Everything is included for the entire season.",
+      icon: <CurrencyDollarIcon />, // Use appropriate icons if needed
     },
     {
-      title: "Improve acquisition",
-      desc: "Here you can add the next benefit point.",
-      icon: <ChartBarSquareIcon />,
+      title: "No Hidden Costs",
+      desc: "No ID checks, no extra charges, no referee fees—just straightforward soccer fun.",
+      icon: <ShieldCheckIcon />,
     },
     {
-      title: "Drive customer retention",
-      desc: "This will be your last bullet point in this section.",
-      icon: <CursorArrowRaysIcon />,
+      title: "Hassle-Free Experience",
+      desc: "From registration to game day, we make it simple and stress-free for your team.",
+      icon: <ClipboardDocumentCheckIcon />,
     },
   ],
 };
 
 const benefitTwo = {
-  title: "Offer more benefits here",
-  desc: "You can use this same layout with a flip image to highlight your rest of the benefits of your product. It can also contain an image or Illustration as above section along with some bullet points.",
+  title: "Exciting Formats and Features",
+  desc: "Our league stands out with unique features designed to maximize enjoyment, competitiveness, and affordability. From thrilling tournament formats to no hidden fees, we ensure every player has an unforgettable experience.",
   image: benefitTwoImg,
   bullets: [
     {
-      title: "Mobile Responsive Template",
-      desc: "Nextly is designed as a mobile first responsive template.",
-      icon: <DevicePhoneMobileIcon />,
+      title: "Champions League Format",
+      desc: "Winners of each seasonal league compete in a grand Champions League during the summer for ultimate bragging rights.",
+      icon: <TrophyIcon />,
     },
     {
-      title: "Powered by Next.js & TailwindCSS",
-      desc: "This template is powered by latest technologies and tools.",
-      icon: <AdjustmentsHorizontalIcon />,
+      title: "Dynamic Scheduling",
+      desc: "With four games per day and a well-paced schedule, participants can enjoy matches without overwhelming time commitments.",
+      icon: <CalendarDaysIcon />,
     },
     {
-      title: "Dark & Light Mode",
-      desc: "Nextly comes with a zero-config light & dark mode. ",
-      icon: <SunIcon />,
+      title: "No Hidden Fees",
+      desc: "All-inclusive entry fees—no referee charges or ID checks—make it simple and affordable for teams to join and play.",
+      icon: <BanknotesIcon />,
     },
   ],
 };
-
 
 export {benefitOne, benefitTwo};

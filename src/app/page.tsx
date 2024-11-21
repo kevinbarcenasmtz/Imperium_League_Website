@@ -12,46 +12,79 @@ export default function Home() {
   return (
     <Container>
       <Hero />
-      <SectionTitle
-        preTitle="Nextly Benefits"
-        title=" Why should you use this landing page"
-      >
-        Nextly is a free landing page & marketing website template for startups
-        and indie projects. Its built with Next.js & TailwindCSS. And its
-        completely open-source.
-      </SectionTitle>
 
+
+
+      {/* New Soccer League Section */}
+
+      <SectionTitle
+        preTitle="Why Join Empire Football League?"
+        title="Why should you join this league"
+      >
+      </SectionTitle>
+      <div className="grid gap-10 mt-10 md:grid-cols-3">
+          <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+              Competitive Matches
+            </h3>
+            <p className="mt-3 text-gray-500 dark:text-gray-300">
+              Experience weekly games with teams of all skill levels. Compete for the championship while building camaraderie.
+            </p>
+          </div>
+          <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+              Community Engagement
+            </h3>
+            <p className="mt-3 text-gray-500 dark:text-gray-300">
+              Be part of a league that values community outreach. Participate in local events and support soccer initiatives.
+            </p>
+          </div>
+        <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+            Player Spotlights
+          </h3>
+          <p className="mt-3 text-gray-500 dark:text-gray-300">
+            Get recognized for your achievements on and off the field with monthly player spotlights and awards.
+          </p>
+        </div>
+      </div>
+
+      {/* Benefits */}
       <Benefits data={benefitOne} />
       <Benefits imgPos="right" data={benefitTwo} />
 
+
+      {/* Video */}
       <SectionTitle
-        preTitle="Watch a video"
-        title="Learn how to fullfil your needs"
+        preTitle="Experience the Action"
+        title="See the Thrill of Gameplay at Empire League"
       >
-        This section is to highlight a promo or demo video of your product.
-        Analysts says a landing page with video has 3% more conversion rate. So,
-        don&apos;t forget to add one. Just like this.
+        Our courts come alive with energy and excitement! Watch this highlight reel showcasing competitive games, teamwork, and the passion of players at our venue. Feel the adrenaline and imagine yourself on the field!
       </SectionTitle>
 
-      <Video videoId="fZ0D0cnR88E" />
+      <Video videoId="yourYouTubeVideoID" />
 
-      <SectionTitle
+
+      {/* <SectionTitle
         preTitle="Testimonials"
         title="Here's what our customers said"
       >
         Testimonials is a great way to increase the brand trust and awareness.
         Use this section to highlight your popular customers.
-      </SectionTitle>
+      </SectionTitle> */}
 
-      <Testimonials />
+      {/* <Testimonials /> */}
 
       <SectionTitle preTitle="FAQ" title="Frequently Asked Questions">
-        Answer your customers possible questions here, it will increase the
-        conversion rate as well as support or chat requests.
+        {/* Answer your customers possible questions here, it will increase the
+        conversion rate as well as support or chat requests. */}
       </SectionTitle>
 
       <Faq />
-      <Cta />
+      {/* <Cta /> */}
+
+
+
     </Container>
   );
 }

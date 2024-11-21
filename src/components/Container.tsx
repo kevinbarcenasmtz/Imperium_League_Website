@@ -8,10 +8,9 @@ interface ContainerProps {
 export function Container(props: Readonly<ContainerProps>) {
   return (
     <div
-      className={`container p-8 mx-auto xl:px-0 ${
-        props.className ? props.className : ""
-      }`}>
-      {props.children}
+    className={`container p-6 md:p-12 lg:p-16 mx-auto ${
+      props.className ? props.className : ""
+    }`}>      {props.children}
     </div>
   );
 }
