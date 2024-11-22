@@ -1,19 +1,19 @@
 "use client";
 import Link from "next/link";
-import ThemeChanger from "./DarkSwitch";
 import Image from "next/image";
-import { Disclosure } from "@headlessui/react";
+// import { Disclosure } from "@headlessui/react";
 
 export const Navbar = () => {
   const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Leagues", href: "/leagues" },
-  { name: "Standings", href: "/standings" },
-  { name: "Calendar", href: "/calendar" },
-  { name: "Contact", href: "/contact" },
-  { name: "Blog", href: "/blog" },
+    { name: "Home", href: "/"},
+    { name: "About Us", href: "/about" },
+    { name: "Leagues", href: "/league"},
+    { name: "Standings", href: "/standings"},
+    { name: "Calendar", href: "/calendar"},
+    { name: "Contact", href: "/contact" },
+    { name: "Blog", href: "/blog"},
   ];
+
 
   return (
     <div className="w-full">
@@ -48,7 +48,7 @@ export const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <Disclosure>
+        {/* <Disclosure>
           {({ open }) => (
             <>
               <Disclosure.Button
@@ -77,13 +77,13 @@ export const Navbar = () => {
 
               <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                 {navigation.map((item, index) => (
-                  <Link
+                  <CustomLink
                     key={index}
                     href={item.href}
                     className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none"
                   >
                     {item.name}
-                  </Link>
+                  </CustomLink>
                 ))}
                 <Link
                   href="/get-started"
@@ -94,7 +94,7 @@ export const Navbar = () => {
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
 
         {/* Desktop Menu */}
         <div className="hidden text-center lg:flex lg:items-center">
@@ -111,6 +111,7 @@ export const Navbar = () => {
             ))}
           </ul>
         </div>
+
       </nav>
     </div>
   );
