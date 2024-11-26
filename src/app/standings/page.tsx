@@ -1,4 +1,3 @@
-// /src/app/standings/page.tsx
 import { Container } from "@/components/Container";
 
 export default function StandingsPage() {
@@ -12,37 +11,49 @@ export default function StandingsPage() {
   ];
 
   return (
+    <Container className="py-12">
+      {/* Header Section */}
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-extrabold text-[#ED2939] mb-4">League Standings</h1>
+        <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+          Keep track of the league's top teams, their matches, and their points as they compete for glory!
+        </p>
+      </div>
 
-    <Container className="flex flex-wrap">
-        <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-center">League Standings</h1>
-        <table className="w-full table-auto border-collapse border border-gray-400">
-            <thead>
-            <tr className="bg-gray-200">
-                <th className="border border-gray-400 px-4 py-2">Position</th>
-                <th className="border border-gray-400 px-4 py-2">Team</th>
-                <th className="border border-gray-400 px-4 py-2">Played</th>
-                <th className="border border-gray-400 px-4 py-2">Won</th>
-                <th className="border border-gray-400 px-4 py-2">Drawn</th>
-                <th className="border border-gray-400 px-4 py-2">Lost</th>
-                <th className="border border-gray-400 px-4 py-2">Points</th>
+      {/* Table Section */}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse border border-gray-200 shadow-md">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Position</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Team</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Played</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Won</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Drawn</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Lost</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Points</th>
             </tr>
-            </thead>
-            <tbody>
-            {standings.map((team) => (
-                <tr key={team.position} className="text-center">
-                <td className="border border-gray-400 px-4 py-2">{team.position}</td>
-                <td className="border border-gray-400 px-4 py-2">{team.team}</td>
-                <td className="border border-gray-400 px-4 py-2">{team.played}</td>
-                <td className="border border-gray-400 px-4 py-2">{team.won}</td>
-                <td className="border border-gray-400 px-4 py-2">{team.drawn}</td>
-                <td className="border border-gray-400 px-4 py-2">{team.lost}</td>
-                <td className="border border-gray-400 px-4 py-2">{team.points}</td>
-                </tr>
+          </thead>
+          <tbody>
+            {standings.map((team, index) => (
+              <tr
+                key={team.position}
+                className={`text-sm text-gray-700 ${
+                  index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                } hover:bg-gray-100 transition duration-200`}
+              >
+                <td className="px-4 py-3">{team.position}</td>
+                <td className="px-4 py-3 font-medium text-gray-900">{team.team}</td>
+                <td className="px-4 py-3">{team.played}</td>
+                <td className="px-4 py-3">{team.won}</td>
+                <td className="px-4 py-3">{team.drawn}</td>
+                <td className="px-4 py-3">{team.lost}</td>
+                <td className="px-4 py-3 font-bold text-[#ED2939]">{team.points}</td>
+              </tr>
             ))}
-            </tbody>
+          </tbody>
         </table>
-        </div>
+      </div>
     </Container>
   );
 }

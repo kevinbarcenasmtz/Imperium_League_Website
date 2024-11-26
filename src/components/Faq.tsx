@@ -36,21 +36,21 @@ export const Faq = () => {
 
 const faqdata = [
   {
-    question: "Is this template completely free to use?",
-    answer: "Yes, this template is completely free to use.",
+    question: "What is the age range for players in the league?",
+    answer: "The league is open to players aged 18-40. Special divisions may exist for younger or older players.",
   },
   {
-    question: "Can I use it in a commercial project?",
-    answer: "Yes, this you can.",
+    question: "How do I join the league?",
+    answer: "Visit our registration page or contact us via email/phone to sign up. Team and individual registrations are available.",
   },
   {
-    question: "What is your refund policy? ",
+    question: "When does the season start and end?",
     answer:
-      "If you're unhappy with your purchase for any reason, email us within 90 days and we'll refund you in full, no questions asked.",
+      "Our seasons run year round, check our league schedules for more information.",
   },
   {
-    question: "Do you offer technical support? ",
+    question: "Where are the matches played?",
     answer:
-      "No, we don't offer technical support for free downloads. Please purchase a support plan to get 6 months of support.",
+      "Matches are played at Akins Highschool Futsal court.",
   },
 ];

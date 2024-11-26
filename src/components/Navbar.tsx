@@ -39,7 +39,7 @@ export const Navbar = () => {
           {/* <ThemeChanger />  */}
           <div className="hidden mr-3 lg:flex nav__item">
             <Link
-              href="" //this will lead to log in page
+              href="/login" //this will lead to log in page
               className="px-6 py-2 text-white rounded-md md:ml-5 bg-[#ED2939] hover:bg-[#C62631]"
             >
               Log In

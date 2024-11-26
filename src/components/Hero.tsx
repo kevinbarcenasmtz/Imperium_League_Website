@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/Container";
-import heroImg from "../../public/img/team_picture.jpg";
+import heroImg from "../../public/pickup_photos/img_2379.jpg";
 
 export const Hero = () => {
   return (
@@ -20,15 +20,14 @@ export const Hero = () => {
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
               <a
-                href="" //this will lead to a join the league page
-                target="_blank"
+                href="/login" //this will lead to a join the league page
                 rel="noopener"
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-[#ED2939] hover:bg-[#C62631] rounded-md ">
                 Join the League
               </a>
               <a
-                href="" //this will lead to a faq or about us page
-                target="_blank"
+                href="/about"
+                // target="_blank"
                 rel="noopener"
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-[#ED2939] rounded-md hover:bg-[#C62631]">
                 {/* <svg
@@ -52,8 +51,9 @@ export const Hero = () => {
           <div className="">
             <Image
               src={heroImg}
-              width="616"
-              height="617"
+              layout="responsive"
+              // width="616"
+              // height="617"
               className={"object-cover"}
               alt="Hero Illustration"
               loading="eager"

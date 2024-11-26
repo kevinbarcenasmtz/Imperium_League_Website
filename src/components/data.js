@@ -7,8 +7,9 @@ import {
   BanknotesIcon,
 } from "@heroicons/react/24/solid";
 
-import benefitOneImg from "../../public/img/diego_chase_photo.jpg";
-import benefitTwoImg from "../../public/img/futsal_court.jpg";
+import benefitOneImg from "../../public/pickup_photos/IMG_2475.JPG";
+import benefitTwoImg from "../../public/pickup_photos/IMG_2534.JPG";
+
 
 const benefitOne = {
   title: "Affordable Pricing for All Teams",

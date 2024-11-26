@@ -25,6 +25,10 @@ const config: Config = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"), // For rich text
+    require("@tailwindcss/forms"), // For better forms styling
+    require("@tailwindcss/aspect-ratio"), // For aspect ratio utilities
+  ],
 };
 export default config;

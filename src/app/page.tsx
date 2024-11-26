@@ -60,7 +60,7 @@ export default function Home() {
         Our courts come alive with energy and excitement! Watch this highlight reel showcasing competitive games, teamwork, and the passion of players at our venue. Feel the adrenaline and imagine yourself on the field!
       </SectionTitle>
 
-      <Video videoId="yourYouTubeVideoID" />
+      <Video videoSrc="/videos/img_04.mp4" />
 
 
       {/* <SectionTitle

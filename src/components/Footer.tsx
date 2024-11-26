@@ -4,7 +4,12 @@ import React from "react";
 import { Container } from "@/components/Container";
 
 export function Footer() {
-  const navigation = ["Home", "About Us", "Leagues", "Standings", "Contact"];
+  const navigation = [
+    { name: "Home", href: "/"},
+    { name: "About Us", href: "/about" },
+    { name: "Calendar", href: "/calendar"},
+    { name: "Contact", href: "/contact" },
+  ];
   const legal = ["Terms of Service", "Privacy Policy", "Rules"];
 
   return (
@@ -39,18 +44,22 @@ export function Footer() {
             <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Navigation
             </h4>
-            <div className="flex flex-wrap w-full mt-4 -ml-3 lg:ml-0">
-              {navigation.map((item, index) => (
-                <Link
-                  key={index}
-                  href="/"
-                  className="w-full px-4 py-2 text-gray-600 rounded-md dark:text-gray-300 hover:text-[#ED2939] focus:text-[#ED2939] focus:bg-gray-200 dark:focus:bg-gray-800 focus:outline-none"
-                >
-                  {item}
-                </Link>
+            <ul className="flex flex-wrap gap-3 w-full mt-4">
+              {navigation.map((menu, index) => (
+                <li className="mr-3 nav__item" key={index}>
+                  <Link
+                    href={menu.href}
+                    className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-[#ED2939] focus:text-[#ED2939] focus:bg-[#FAD4D8] focus:outline-none dark:focus:bg-[#4D1216]"
+                  >
+                    {menu.name}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
+
+
+          
           <div>
             <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Legal
@@ -72,7 +81,7 @@ export function Footer() {
               Follow Us
             </h4>
             <div className="flex mt-5 space-x-5 text-gray-500 dark:text-gray-400">
-              <a
+              {/* <a
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noopener"
@@ -89,7 +98,7 @@ export function Footer() {
               >
                 <span className="sr-only">Facebook</span>
                 <Facebook />
-              </a>
+              </a> */}
               <a
                 href="https://www.instagram.com/imperium____fc/"
                 target="_blank"
@@ -99,7 +108,7 @@ export function Footer() {
                 <span className="sr-only">Instagram</span>
                 <Instagram />
               </a>
-              <a
+              {/* <a
                 href="https://linkedin.com/"
                 target="_blank"
                 rel="noopener"
@@ -107,7 +116,7 @@ export function Footer() {
               >
                 <span className="sr-only">Linkedin</span>
                 <Linkedin />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
