@@ -13,8 +13,6 @@ export default function Home() {
     <Container>
       <Hero />
 
-
-
       {/* New Soccer League Section */}
 
       <SectionTitle
