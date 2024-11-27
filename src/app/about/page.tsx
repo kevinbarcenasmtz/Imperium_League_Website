@@ -1,7 +1,7 @@
 import { Container } from "@/components/Container";
 import { FaFutbol, FaUsers, FaMapMarkerAlt, FaHandshake } from "react-icons/fa";
 import Image from "next/image";
-import landscapePhoto from "../../../public/pickup_photos/IMG_2521.jpg";
+import landscapePhoto from "../../../public/pickup_photos/aboutusPhoto.jpg";
 
 export default function AboutUs() {
   return (
