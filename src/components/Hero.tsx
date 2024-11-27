@@ -15,7 +15,7 @@ export const Hero = () => {
               Join Austin’s most exciting and inclusive soccer community! Our 
               midweek adult league is designed for players of all skill levels 
               who are passionate about the beautiful game. 
-              Whether you're a seasoned player or just looking to stay active and have fun, our league is a great place for you.
+              Whether you&apos;re a seasoned player or just looking to stay active and have fun, our league is a great place for you.
             </p>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import Image from "next/image";
 
 interface Post {
   id: number;
@@ -55,7 +56,7 @@ export default function BlogPage() {
             className="bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden"
           >
             {/* Blog Image */}
-            <img
+            <Image
               src={post.image}
               alt={post.title}
               className="w-full h-48 object-cover"

@@ -16,7 +16,7 @@ export default function StandingsPage() {
       <div className="text-center mb-12">
         <h1 className="text-5xl font-extrabold text-[#ED2939] mb-4">League Standings</h1>
         <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
-          Keep track of the league's top teams, their matches, and their points as they compete for glory!
+          Keep track of the league&apos;s top teams, their matches, and their points as they compete for glory!
         </p>
       </div>
 
