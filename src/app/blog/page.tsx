@@ -16,7 +16,7 @@ const blogPosts: Post[] = [
     title: "The Future of Football Leagues",
     summary:
       "Football leagues are constantly evolving. Here we explore the next big trends...",
-    image: "/img/blog1.jpg", // Replace with actual image path
+    image: "/pickup_photos/IMG_2471.jpg", // Replace with actual image path
     slug: "the-future-of-football-leagues",
   },
   {
@@ -24,7 +24,7 @@ const blogPosts: Post[] = [
     title: "Why Football Teams Should Invest in Youth Development",
     summary:
       "Youth development is key to building a strong future for your football club...",
-    image: "/img/blog2.jpg", // Replace with actual image path
+    image: "/pickup_photos/IMG_2596.jpg", // Replace with actual image path
     slug: "why-football-teams-should-invest-in-youth-development",
   },
   {
@@ -32,7 +32,7 @@ const blogPosts: Post[] = [
     title: "Top 5 Football Matches to Watch This Season",
     summary:
       "Looking for exciting matches to watch? Check out our top picks for this season...",
-    image: "/img/blog3.jpg", // Replace with actual image path
+    image: "/pickup_photos/IMG_2487.jpg", // Replace with actual image path
     slug: "top-5-football-matches-to-watch-this-season",
   },
 ];
@@ -60,6 +60,8 @@ export default function BlogPage() {
               src={post.image}
               alt={post.title}
               className="w-full h-48 object-cover"
+              width={800} // Replace with your actual image width
+              height={600} // Replace with your actual image height
             />
             {/* Blog Content */}
             <div className="p-6">
