@@ -1,22 +1,34 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Changed from next/router
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    // Simulate login process
-    setTimeout(() => {
-      console.log("Login submitted:", { email, password });
-      setIsSubmitting(false);
-    }, 1500);
-  };
+  const result = await signIn("credentials", {
+    email,
+    password,
+    redirect: false, // prevent automatic redirect from next-auth
+  });
+
+  if (result?.error) {
+    alert(result.error); // Handle error if any
+  } else {
+    // Redirect to dashboard after successful login
+    router.push("/dashboard");
+  }
+
+  setIsSubmitting(false);
+};
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
@@ -43,7 +55,6 @@ export default function Login() {
               required
             />
           </div>
-
           {/* Password Field */}
           <div>
             <label
@@ -62,7 +73,6 @@ export default function Login() {
               required
             />
           </div>
-
           {/* Submit Button */}
           <button
             type="submit"
@@ -73,13 +83,23 @@ export default function Login() {
           >
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
+          {/* Google Sign-In */}
+          <button
+            type="button" // Added type="button" to prevent form submission
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            className={`w-full bg-[#ED2939] text-white font-bold py-2 rounded-md transition duration-200 ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-[#C62631]"
+            }`}
+            disabled={isSubmitting}
+          >
+            Sign In with Google
+          </button>
         </form>
-
         {/* Additional Links */}
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Don&apos;t have an account?{" "}
-            <Link 
+            <Link
               href="/signup"
               className="text-[#ED2939] font-medium hover:underline"
             >

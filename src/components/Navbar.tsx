@@ -42,7 +42,7 @@ export const Navbar = () => {
               href="/login" //this will lead to log in page
               className="px-6 py-2 text-white rounded-md md:ml-5 bg-[#ED2939] hover:bg-[#C62631]"
             >
-              Log In
+              Login
             </Link>
           </div>
         </div>

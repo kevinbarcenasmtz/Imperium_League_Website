@@ -128,7 +128,12 @@ export default function Signup() {
           >
             {isSubmitting ? "Creating Account..." : "Sign Up"}
           </button>
+
+
+         
         </form>
+
+
 
         {/* Additional Links */}
         <div className="mt-6 text-center">
@@ -142,6 +147,7 @@ export default function Signup() {
             </Link>
           </p>
         </div>
+
       </div>
     </div>
   );
