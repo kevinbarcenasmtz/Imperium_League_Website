@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
 import { compare } from "bcryptjs";
+import { User } from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -18,8 +19,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+      async authorize(
+        credentials: Partial<Record<"email" | "password", unknown>>,
+        request: Request
+      ): Promise<User | null> {
+        if (!credentials?.email || !credentials?.password || 
+            typeof credentials.email !== "string" || 
+            typeof credentials.password !== "string") {
           throw new Error("Please enter your email and password");
         }
 
