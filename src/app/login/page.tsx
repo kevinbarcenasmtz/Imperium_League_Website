@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Changed from next/router
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
@@ -8,27 +8,36 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
+  const [error, setError] = useState("");
+  const callbackUrl = searchParams?.get("callbackUrl") || "/tournament/register"; // Default redirect to team registration
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
 
-  const result = await signIn("credentials", {
-    email,
-    password,
-    redirect: false, // prevent automatic redirect from next-auth
-  });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl,
+      });
 
-  if (result?.error) {
-    alert(result.error); // Handle error if any
-  } else {
-    // Redirect to dashboard after successful login
-    router.push("/dashboard");
-  }
-
-  setIsSubmitting(false);
-};
+      if (result?.error) {
+        setError(result.error);
+      } else if (result?.ok) {
+        router.push(callbackUrl);
+        router.refresh();
+      }
+    } catch (error) {
+      setError("An error occurred during login");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
@@ -36,8 +45,12 @@ export default function Login() {
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-6">
           Login
         </h1>
+        {error && (
+          <div className="text-red-600 text-sm mb-4 text-center">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email Field */}
           <div>
             <label
               htmlFor="email"
@@ -55,7 +68,6 @@ export default function Login() {
               required
             />
           </div>
-          {/* Password Field */}
           <div>
             <label
               htmlFor="password"
@@ -73,7 +85,6 @@ export default function Login() {
               required
             />
           </div>
-          {/* Submit Button */}
           <button
             type="submit"
             className={`w-full bg-[#ED2939] text-white font-bold py-2 rounded-md transition duration-200 ${
@@ -83,19 +94,17 @@ export default function Login() {
           >
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
-          {/* Google Sign-In */}
           <button
-            type="button" // Added type="button" to prevent form submission
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            className={`w-full bg-[#ED2939] text-white font-bold py-2 rounded-md transition duration-200 ${
-              isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-[#C62631]"
+            type="button"
+            onClick={() => signIn("google", { callbackUrl: "/tournament/register" })}
+            className={`w-full bg-gray-100 text-gray-700 font-bold py-2 rounded-md transition duration-200 ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"
             }`}
             disabled={isSubmitting}
           >
-            Sign In with Google
+            Login with Google
           </button>
         </form>
-        {/* Additional Links */}
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Don&apos;t have an account?{" "}

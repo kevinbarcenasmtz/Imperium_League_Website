@@ -2,8 +2,11 @@
 
 import React from "react";
 import { Container } from "@/components/Container";
+import { useRouter } from "next/navigation";
 
 const CalendarPage = () => {
+  const router = useRouter();
+
   return (
     <Container className="py-12">
       {/* Header Section */}
@@ -19,15 +22,18 @@ const CalendarPage = () => {
         {/* Example Event Card 1 */}
         <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Event Name
+            Empire Football League
           </h2>
           <p className="text-gray-600 mb-1">
-            <span className="font-medium">Date:</span> January 15, 2024
+            <span className="font-medium">Date:</span> Coming Soon
           </p>
           <p className="text-gray-600 mb-4">
-            <span className="font-medium">Location:</span> Online
+            <span className="font-medium">Location:</span> Austin, Texas
           </p>
-          <button className="w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200">
+          <button
+            onClick={() => router.push("/")}
+            className="w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200"
+          >
             Learn More
           </button>
         </div>
@@ -35,31 +41,37 @@ const CalendarPage = () => {
         {/* Example Event Card 2 */}
         <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Upcoming Tournament
+            Empire Cash Prize V1 Tournament
           </h2>
           <p className="text-gray-600 mb-1">
-            <span className="font-medium">Date:</span> February 20, 2024
+            <span className="font-medium">Date:</span> January 25-26, 2024
           </p>
           <p className="text-gray-600 mb-4">
-            <span className="font-medium">Location:</span> New York
+            <span className="font-medium">Location:</span> South Austin, Slaughter Ln
           </p>
-          <button className="w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200">
+          <button
+            onClick={() => router.push("/tournament")}
+            className="w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200"
+          >
             Register Now
           </button>
         </div>
 
-        {/* Additional Event Cards */}
+        {/* Additional Event Card */}
         <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Charity Match
+            Pickup Runs
           </h2>
           <p className="text-gray-600 mb-1">
-            <span className="font-medium">Date:</span> March 10, 2024
+            <span className="font-medium">Date:</span> Weekly
           </p>
           <p className="text-gray-600 mb-4">
-            <span className="font-medium">Location:</span> Los Angeles
+            <span className="font-medium">Location:</span> South Austin, Slaughter Ln
           </p>
-          <button className="w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200">
+          <button
+            onClick={() => router.push("/")}
+            className="w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200"
+          >
             Support Now
           </button>
         </div>

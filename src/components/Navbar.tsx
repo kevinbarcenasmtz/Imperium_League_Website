@@ -2,18 +2,67 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
+import { useSession, signOut } from "next-auth/react";
 
 export const Navbar = () => {
+  const { data: session, status } = useSession();
+
   const navigation = [
-    { name: "Home", href: "/"},
+    { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
-    { name: "Leagues", href: "/league"},
-    { name: "Standings", href: "/standings"},
-    { name: "Calendar", href: "/calendar"},
+    { name: "Leagues", href: "/league" },
+    { name: "Standings", href: "/standings" },
+    { name: "Calendar", href: "/calendar" },
     { name: "Contact", href: "/contact" },
-    { name: "Blog", href: "/blog"},
+    { name: "Blog", href: "/blog" },
   ];
 
+  const handleLogout = async () => {
+    await signOut({ redirect: true, callbackUrl: "/" });
+  };
+
+  const AuthButtons = () => {
+    if (status === "loading") {
+      return null;
+    }
+
+    if (session) {
+      return (
+        <>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/dashboard"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 transition duration-200"
+              aria-label="Profile"
+            >
+              <Image
+                src={"/img/user.png"}
+                alt="Profile"
+                width={24}
+                height={24}
+                className="w-6 h-6 rounded-full"
+              />
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="px-6 py-2 text-white rounded-md bg-[#ED2939] hover:bg-[#C62631]"
+            >
+              Logout
+            </button>
+          </div>
+        </>
+      );
+    }
+
+    return (
+      <Link
+        href="/login"
+        className="px-6 py-2 text-white rounded-md bg-[#ED2939] hover:bg-[#C62631]"
+      >
+        Login
+      </Link>
+    );
+  };
 
   return (
     <div className="w-full">
@@ -33,22 +82,14 @@ export const Navbar = () => {
           <span>Empire Football League</span>
         </Link>
 
-        {/* Get Started */}
-        <div className="gap-3 nav__item mr-2 lg:flex ml-auto lg:ml-0 lg:order-2">
-          {/* for now gonna delete dark mode not really nec. */}
-          {/* <ThemeChanger />  */}
-          <div className="hidden mr-3 lg:flex nav__item">
-            <Link
-              href="/login" //this will lead to log in page
-              className="px-6 py-2 text-white rounded-md md:ml-5 bg-[#ED2939] hover:bg-[#C62631]"
-            >
-              Login
-            </Link>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-3 ml-auto lg:ml-0 lg:order-2">
+          <div className="hidden lg:flex">
+            <AuthButtons />
           </div>
         </div>
 
         {/* Mobile Menu */}
-
         <Disclosure>
           {({ open }) => (
             <>
@@ -87,13 +128,9 @@ export const Navbar = () => {
                     {item.name}
                   </Disclosure.Button>
                 ))}
-                <Disclosure.Button
-                  as={Link}
-                  href="/login"
-                  className="w-full px-6 py-2 mt-3 text-center text-white bg-[#ED2939] rounded-md lg:ml-5 hover:bg-[#C62631] transition duration-200"
-                >
-                  Login
-                </Disclosure.Button>
+                <div className="w-full px-4 py-2 -ml-4">
+                  <AuthButtons />
+                </div>
               </Disclosure.Panel>
             </>
           )}
@@ -114,7 +151,6 @@ export const Navbar = () => {
             ))}
           </ul>
         </div>
-
       </nav>
     </div>
   );

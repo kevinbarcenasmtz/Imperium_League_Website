@@ -4,11 +4,11 @@ import { Container } from "@/components/Container";
 export default function LeaguesPage() {
   // Sample data for leagues (replace with actual API data or database query)
   const leagues = [
-    { name: "Premier League", teams: 20, founded: 1992, country: "England" },
-    { name: "La Liga", teams: 20, founded: 1929, country: "Spain" },
-    { name: "Serie A", teams: 20, founded: 1898, country: "Italy" },
-    { name: "Bundesliga", teams: 18, founded: 1963, country: "Germany" },
-    { name: "Ligue 1", teams: 20, founded: 1932, country: "France" },
+    { name: "Primera", teams: 16, founded: 2024, country: "Austin" },
+    { name: "Segunda", teams: 16, founded: 2024, country: "Austin" },
+    { name: "Tercera", teams: 16, founded: 2024, country: "Austin" },
+    { name: "Co-Ed Primera", teams: 16, founded: 2024, country: "Austin" },
+    { name: "Co-Ed Segunda", teams: 16, founded: 2024, country: "Austin" },
   ];
 
   return (
