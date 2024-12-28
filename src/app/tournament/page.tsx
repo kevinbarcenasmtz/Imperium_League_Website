@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Container } from "@/components/Container";
+import Image from 'next/image'
 
 const TournamentInfoPage = () => {
   const { data: session, status } = useSession();
@@ -30,15 +31,19 @@ const TournamentInfoPage = () => {
       </div>
 
       <div className="flex justify-center items-center gap-8 mb-12">
-        <img
+        <Image 
           src="/img/IMG_3877.jpg"
           alt="Tournament Banner 1"
-          className="w-1/3 rounded-lg shadow-md"
+          className="rounded-lg shadow-md"
+          width={400}
+          height={400}
         />
-        <img
+        <Image 
           src="/img/8CF8F643-7272-4EE1-912D-3CBD73D9DBF5.jpg"
           alt="Tournament Banner 2"
-          className="w-1/3 rounded-lg shadow-md"
+          className="rounded-lg shadow-md"
+          width={350}
+          height={400}
         />
       </div>
 

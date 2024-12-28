@@ -127,7 +127,7 @@ export default function Dashboard() {
           Welcome, {session.user?.name || "Guest"}
         </h1>
         <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto mb-8">
-          Create and manage your teams to get started with the game. Let's organize and enjoy the fun!
+          Create and manage your teams to get started with the game. Let&aposs organize and enjoy the fun!
         </p>
       </section>
 
@@ -171,7 +171,7 @@ export default function Dashboard() {
         {loading ? (
           <div className="text-center text-gray-600">Loading teams...</div>
         ) : teams.length === 0 ? (
-          <div className="text-center text-gray-600">You haven't created any teams yet.</div>
+          <div className="text-center text-gray-600">You haven&apost created any teams yet.</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {teams.map((team) => (

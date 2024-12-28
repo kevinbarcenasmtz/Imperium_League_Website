@@ -69,7 +69,7 @@ const RegisterTeamPage = () => {
           <h1 className="text-3xl font-bold mb-4">Register Your Team</h1>
           <p className="text-gray-600">
             Fill out the form below to register your team for the tournament. 
-            We can't wait to see you on the field!
+            We can&apost wait to see you on the field!
           </p>
         </div>
 
