@@ -1,16 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
-export default function Login() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const searchParams = useSearchParams();
   const [error, setError] = useState("");
-  const callbackUrl = searchParams?.get("callbackUrl") || "/tournament/register"; // Default redirect to team registration
+  const callbackUrl = searchParams?.get("callbackUrl") || "/tournament/register";
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -118,5 +118,22 @@ export default function Login() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Loading fallback component
+function LoginLoading() {
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="text-gray-700 dark:text-gray-300">Loading...</div>
+    </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense fallback={<LoginLoading />}>
+      <LoginForm />
+    </Suspense>
   );
 }
