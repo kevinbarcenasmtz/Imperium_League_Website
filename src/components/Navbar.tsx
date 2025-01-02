@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
 import { useSession, signOut } from "next-auth/react";
-import { FaUser, FaSignOutAlt } from 'react-icons/fa'; // Add icons
 
 type AuthButtonsProps = {
   onClose?: () => void;
@@ -33,10 +32,10 @@ export const Navbar = () => {
 
     if (session) {
       return (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all duration-300"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 transition duration-200"
             aria-label="Profile"
             onClick={onClose}
           >
@@ -47,20 +46,15 @@ export const Navbar = () => {
               height={24}
               className="w-6 h-6 rounded-full"
             />
-            <span className="text-gray-700 dark:text-gray-300 font-medium hidden lg:inline">
-              {session.user?.name?.split(' ')[0]}
-            </span>
           </Link>
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              if (onClose) onClose();
+            onClick={() => {
               handleLogout();
+              if (onClose) onClose();
             }}
-            className="flex items-center gap-2 px-4 py-2 text-white rounded-full bg-[#ED2939] hover:bg-[#C62631] transition-all duration-300"
+            className="px-6 py-2 text-white rounded-md bg-[#ED2939] hover:bg-[#C62631]"
           >
-            <FaSignOutAlt className="w-4 h-4" />
-            <span>Logout</span>
+            Logout
           </button>
         </div>
       );
@@ -70,16 +64,16 @@ export const Navbar = () => {
       <Link
         href="/login"
         onClick={onClose}
-        className="flex items-center gap-2 px-6 py-2 text-white rounded-full bg-[#ED2939] hover:bg-[#C62631] shadow-lg hover:shadow-xl transition-all duration-300"
+        className="px-6 py-2 text-white rounded-md bg-[#ED2939] hover:bg-[#C62631]"
       >
-        <FaUser className="w-4 h-4" />
-        <span>Login</span>
+        Login
       </Link>
     );
   };
 
   return (
-    <div className="w-full sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700">
+    <div className="w-full sticky top-0 z-50 bg-white shadow-md dark:bg-gray-900 shadow-gray-200/50 dark:shadow-black/20">
+    {/* <div className="w-full sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700"> */}
       <nav className="container flex items-center justify-between px-6 py-4 mx-auto lg:px-8 xl:px-16 max-w-screen-xl">
         {/* Logo */}
         <div className="flex items-center space-x-2 flex-grow lg:flex-grow-0">
@@ -88,19 +82,19 @@ export const Navbar = () => {
             width={24}
             height={24}
             alt="Team Logo"
-            className="w-6 sm:w-8 hover:scale-110 transition-transform duration-300"
+            className="w-6 sm:w-8"
           />
-          <span>Empire Football League</span>
+        <span>Empire Football League</span>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden text-center lg:flex lg:items-center">
-          <ul className="items-center justify-center flex-1 list-none lg:flex lg:space-x-1">
+          <ul className="items-center justify-center flex-1 list-none lg:flex">
             {navigation.map((menu, index) => (
-              <li className="nav__item" key={index}>
+              <li className="mr-3 nav__item" key={index}>
                 <Link
                   href={menu.href}
-                  className="inline-block px-4 py-2 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-[#ED2939] transition-all duration-300"
+                  className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-[#ED2939] focus:text-[#ED2939] focus:bg-[#FAD4D8] focus:outline-none dark:focus:bg-[#4D1216] lg:text-sm"
                 >
                   {menu.name}
                 </Link>
@@ -114,13 +108,14 @@ export const Navbar = () => {
           <AuthButtons />
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu */}
         <Disclosure>
           {({ open, close }) => (
             <>
+              {/* Hamburger Button */}
               <Disclosure.Button
                 aria-label="Toggle Menu"
-                className="absolute top-4 right-4 p-2 text-gray-500 rounded-full lg:hidden hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+                className="absolute top-4 right-4 px-2 py-1 text-gray-500 rounded-md lg:hidden hover:text-[#ED2939] focus:text-[#ED2939] focus:bg-[#FAD4D8] focus:outline-none dark:text-gray-300 dark:focus:bg-[#4D1216]"
               >
                 <svg
                   className="w-6 h-6 fill-current"
@@ -142,13 +137,14 @@ export const Navbar = () => {
                 </svg>
               </Disclosure.Button>
 
-              {/* Mobile Menu Panel */}
-              <Disclosure.Panel className="fixed inset-0 z-50 bg-white/95 backdrop-blur-lg dark:bg-gray-900/95 lg:hidden">
-                <div className="flex flex-col items-center justify-start w-full h-full p-6">
+              {/* Fullscreen Menu */}
+              <Disclosure.Panel className="fixed inset-0 z-[100] bg-[#D78A91] dark:bg-gray-900 lg:hidden">
+                <div className="flex flex-col items-start justify-start w-full h-full p-6">
+                  {/* Close Button */}
                   <button
                     aria-label="Close Menu"
                     onClick={() => close()}
-                    className="self-end p-2 text-gray-500 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+                    className="self-end mb-6 text-gray-500 rounded-md hover:text-[#ED2939] focus:text-[#ED2939] focus:bg-[#FAD4D8] focus:outline-none dark:text-gray-300 dark:focus:bg-[#4D1216]"
                   >
                     <svg
                       className="w-6 h-6 fill-current"
@@ -163,18 +159,19 @@ export const Navbar = () => {
                     </svg>
                   </button>
 
-                  <div className="flex flex-col items-center justify-start w-full mt-10 space-y-6">
+                  {/* Menu Items */}
+                  <div className="flex flex-col items-start justify-start w-full max-h-[50%]">
                     {navigation.map((item, index) => (
                       <Link
                         key={index}
                         href={item.href}
                         onClick={() => close()}
-                        className="w-full text-center px-4 py-3 text-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-all duration-300"
+                        className="w-full px-4 py-2 text-sm text-gray-700 border-b dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         {item.name}
                       </Link>
                     ))}
-                    <div className="w-full flex justify-center pt-6">
+                    <div className="w-full px-4 py-2 mt-2">
                       <AuthButtons onClose={() => close()} />
                     </div>
                   </div>
