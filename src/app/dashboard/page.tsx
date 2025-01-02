@@ -177,32 +177,32 @@ export default function Dashboard() {
       {/* Welcome Section */}
       <section className="text-center mb-16">
         <h1 className="text-4xl font-extrabold text-[#ED2939] mb-4">
-          Welcome, {session.user?.name || "Guest"}
+          Welcome, {session?.user?.name || "Guest"}
         </h1>
-        <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto mb-8">
+        <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto mb-8">
           Manage your teams and enjoy the game. Let&apos;s organize and have fun!
         </p>
       </section>
 
       {/* Messages Display */}
       {error && (
-        <div className="bg-red-50 text-red-500 p-4 rounded-lg mb-6">
+        <div className="bg-red-50 dark:bg-red-900/50 text-red-500 dark:text-red-200 p-4 rounded-lg mb-6">
           {error}
         </div>
       )}
       {successMessage && (
-        <div className="bg-green-50 text-green-500 p-4 rounded-lg mb-6">
+        <div className="bg-green-50 dark:bg-green-900/50 text-green-500 dark:text-green-200 p-4 rounded-lg mb-6">
           {successMessage}
         </div>
       )}
 
       {/* Profile Section */}
-      <section className="bg-white p-8 rounded-lg shadow-md mb-16">
+      <section className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md mb-16 transition-colors duration-200">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-semibold text-gray-800">Profile Settings</h2>
+          <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200">Profile Settings</h2>
           <button
             onClick={() => setIsEditingProfile(!isEditingProfile)}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 inline-flex items-center"
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 inline-flex items-center transition-colors duration-200"
           >
             <FaUser className="mr-2" /> {isEditingProfile ? "Cancel" : "Edit Profile"}
           </button>
@@ -211,29 +211,29 @@ export default function Dashboard() {
         {isEditingProfile ? (
           <form onSubmit={handleProfileSubmit} className="space-y-6">
             <div>
-              <label className="block text-gray-700 mb-2">Name</label>
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
               <input
                 type="text"
                 name="name"
                 value={profileData.name}
                 onChange={handleProfileChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200"
               />
             </div>
             <div>
-              <label className="block text-gray-700 mb-2">Email</label>
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
               <input
                 type="email"
                 name="email"
                 value={profileData.email}
                 onChange={handleProfileChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200"
               />
             </div>
             
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-[#ED2939] text-white font-bold rounded-lg hover:bg-[#C62631] flex items-center justify-center"
+              className="w-full px-6 py-3 bg-[#ED2939] text-white font-bold rounded-lg hover:bg-[#C62631] flex items-center justify-center transition-colors duration-200"
             >
               <FaSave className="mr-2" /> Save Changes
             </button>
@@ -241,15 +241,15 @@ export default function Dashboard() {
         ) : (
           <div className="space-y-4">
             <div className="flex items-center">
-              <FaUser className="text-gray-500 mr-3" />
-              <span className="text-gray-700">{profileData.name}</span>
+              <FaUser className="text-gray-500 dark:text-gray-400 mr-3" />
+              <span className="text-gray-700 dark:text-gray-300">{profileData.name}</span>
             </div>
             <div className="flex items-center">
-              <FaEnvelope className="text-gray-500 mr-3" />
-              <span className="text-gray-700">{profileData.email}</span>
+              <FaEnvelope className="text-gray-500 dark:text-gray-400 mr-3" />
+              <span className="text-gray-700 dark:text-gray-300">{profileData.email}</span>
             </div>
             {isOAuthUser && (
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                 <FaGoogle className="mr-3" />
                 <span>Signed in with Google</span>
               </div>
@@ -260,34 +260,34 @@ export default function Dashboard() {
 
       {/* Team Overview Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+        <h2 className="text-3xl font-semibold text-center text-gray-800 dark:text-gray-200 mb-6">
           Your Teams
         </h2>
         {loading ? (
-          <div className="text-center text-gray-600">Loading teams...</div>
+          <div className="text-center text-gray-600 dark:text-gray-400">Loading teams...</div>
         ) : teams.length === 0 ? (
-          <div className="text-center text-gray-600">You haven&apos;t created any teams yet.</div>
+          <div className="text-center text-gray-600 dark:text-gray-400">You haven&apos;t created any teams yet.</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {teams.map((team) => (
-              <div key={team._id} className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-800">{team.name}</h3>
-                <p className="text-gray-700 mb-4">
+              <div key={team._id} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-200">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{team.name}</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   Players: {team.players.length}
                 </p>
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   Created: {new Date(team.createdAt).toLocaleDateString()}
                 </p>
                 <div className="flex justify-end space-x-2">
                   <Link
                     href={`/teams/edit/${team._id}`}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 inline-flex items-center"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 inline-flex items-center transition-colors duration-200"
                   >
                     <FaEdit className="mr-2" /> Edit
                   </Link>
                   <button
                     onClick={() => handleDeleteTeam(team._id)}
-                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 inline-flex items-center"
+                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 inline-flex items-center transition-colors duration-200"
                   >
                     <FaTrash className="mr-2" /> Delete
                   </button>

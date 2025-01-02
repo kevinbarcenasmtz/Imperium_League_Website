@@ -156,29 +156,30 @@ export default function EditTeamForm({ teamId }: Props) {
     );
   }
 
-  return (
-    <Container className="py-12">
+ return (
+    <Container className="py-6 px-4 md:py-12 md:px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Edit Team</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Edit Team</h1>
           <button
             type="button"
             onClick={() => router.push("/dashboard")}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200"
           >
             <FaArrowLeft className="inline mr-2" /> Back
           </button>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-500 p-4 rounded-lg mb-6">
+          <div className="bg-red-50 dark:bg-red-900/50 text-red-500 dark:text-red-200 p-4 rounded-lg mb-6">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <label className="block text-xl font-semibold text-gray-800 mb-4">
+        <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+          {/* Team Name Section */}
+          <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-md transition-colors duration-200">
+            <label className="block text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
               Team Name
             </label>
             <input
@@ -186,95 +187,124 @@ export default function EditTeamForm({ teamId }: Props) {
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                bg-white dark:bg-gray-700 
+                text-gray-900 dark:text-gray-100
+                focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                transition-colors duration-200"
             />
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Players</h2>
+          {/* Players Section */}
+          <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-md transition-colors duration-200">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Players</h2>
             
+            {/* Add Player Form */}
             <div className="mb-6">
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="text"
                   value={newPlayer.name}
-                  onChange={(e) =>
-                    setNewPlayer({ ...newPlayer, name: e.target.value })
-                  }
+                  onChange={(e) => setNewPlayer({ ...newPlayer, name: e.target.value })}
                   placeholder="Player Name"
-                  className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                    bg-white dark:bg-gray-700 
+                    text-gray-900 dark:text-gray-100
+                    placeholder-gray-500 dark:placeholder-gray-400
+                    focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                    transition-colors duration-200"
                 />
                 <input
                   type="number"
                   value={newPlayer.number}
-                  onChange={(e) =>
-                    setNewPlayer({ ...newPlayer, number: e.target.value })
-                  }
+                  onChange={(e) => setNewPlayer({ ...newPlayer, number: e.target.value })}
                   placeholder="Number"
-                  className="w-24 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+                  className="w-full sm:w-24 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                    bg-white dark:bg-gray-700 
+                    text-gray-900 dark:text-gray-100
+                    placeholder-gray-500 dark:placeholder-gray-400
+                    focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                    transition-colors duration-200"
                 />
                 <input
                   type="text"
                   value={newPlayer.position}
-                  onChange={(e) =>
-                    setNewPlayer({ ...newPlayer, position: e.target.value })
-                  }
+                  onChange={(e) => setNewPlayer({ ...newPlayer, position: e.target.value })}
                   placeholder="Position"
-                  className="w-32 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+                  className="w-full sm:w-32 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                    bg-white dark:bg-gray-700 
+                    text-gray-900 dark:text-gray-100
+                    placeholder-gray-500 dark:placeholder-gray-400
+                    focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                    transition-colors duration-200"
                 />
                 <button
                   type="button"
                   onClick={handleAddPlayer}
-                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                  className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded-md 
+                    hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700
+                    transition-colors duration-200"
                 >
-                  <FaUserPlus className="inline mr-2" /> Add
+                  <FaUserPlus className="inline mr-2" /> Add Player
                 </button>
               </div>
             </div>
 
+            {/* Players List */}
             <div className="space-y-4">
               {players.map((player) => (
                 <div
                   key={player._id}
-                  className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
+                  className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200"
                 >
-                  <div>
-                    <span className="font-semibold">{player.name}</span>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span className="font-semibold text-gray-800 dark:text-gray-200">
+                      {player.name}
+                    </span>
                     {player.number && (
-                      <span className="ml-2 text-gray-600">#{player.number}</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        #{player.number}
+                      </span>
                     )}
                     {player.position && (
-                      <span className="ml-2 text-gray-500">({player.position})</span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        ({player.position})
+                      </span>
                     )}
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemovePlayer(player._id!)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-2"
                   >
                     <FaTimes />
                   </button>
                 </div>
               ))}
               {players.length === 0 && (
-                <div className="text-center text-gray-500 py-4">
+                <div className="text-center text-gray-500 dark:text-gray-400 py-4">
                   No players added yet
                 </div>
               )}
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={saving}
-            className={`w-full px-6 py-3 bg-[#ED2939] text-white font-bold rounded-lg hover:bg-[#C62631] flex items-center justify-center ${
-              saving ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full px-6 py-3 bg-[#ED2939] text-white font-bold rounded-lg 
+              hover:bg-[#C62631] dark:hover:bg-[#C62631] 
+              flex items-center justify-center 
+              transition-colors duration-200
+              focus:outline-none focus:ring-2 focus:ring-[#ED2939] focus:ring-offset-2 
+              dark:focus:ring-offset-gray-800
+              ${saving ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <FaSave className="mr-2" /> {saving ? "Saving..." : "Save Changes"}
           </button>
         </form>
       </div>
     </Container>
-  );
+);
 }
