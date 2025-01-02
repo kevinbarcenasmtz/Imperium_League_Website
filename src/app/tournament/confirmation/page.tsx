@@ -2,9 +2,9 @@
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/Container";
 import { FaCheckCircle, FaCopy } from "react-icons/fa";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
-export default function ConfirmationPage() {
+function ConfirmationContent() {
   const searchParams = useSearchParams();
   const teamName = searchParams.get("team");
   const captain = searchParams.get("captain");
@@ -112,5 +112,19 @@ export default function ConfirmationPage() {
         </div>
       </div>
     </Container>
+  );
+}
+
+export default function ConfirmationPage() {
+  return (
+    <Suspense fallback={
+      <Container>
+        <div className="max-w-3xl mx-auto py-12 text-center">
+          Loading...
+        </div>
+      </Container>
+    }>
+      <ConfirmationContent />
+    </Suspense>
   );
 }
