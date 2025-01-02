@@ -1,60 +1,24 @@
-// app/api/auth/register/route.ts
 import { NextResponse } from 'next/server';
 import { auth } from '../../../../../auth';
 import { connectDB } from '../../../../../lib/mongodb';
+import { Team, Player } from '../../../../../models/Team';
 import mongoose from 'mongoose';
-
-// Define Team and Player schemas
-const playerSchema = new mongoose.Schema({
-  name: String,
-  number: Number,
-  teamId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Team'
-  }
-});
-
-const teamSchema = new mongoose.Schema({
-  name: String,
-  userId: String,
-  players: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Player'
-  }]
-}, { timestamps: true });
-
-// Create models (if they don't exist)
-export const Player = mongoose.models.Player || mongoose.model('Player', playerSchema);
-export const Team = mongoose.models.Team || mongoose.model('Team', teamSchema);
 
 export async function POST(request: Request) {
   console.log('Received registration request');
-  
+ 
   try {
     // Connect to MongoDB
     await connectDB();
-
-    // Log the raw request
-    const rawData = await request.text();
-    console.log('Raw request data:', rawData);
     
-    // Parse the JSON data
-    let body;
-    try {
-      body = JSON.parse(rawData);
-      console.log('Parsed request body:', body);
-    } catch (parseError) {
-      console.error('JSON parsing error:', parseError);
-      return NextResponse.json(
-        { success: false, message: 'Invalid JSON data' },
-        { status: 400 }
-      );
-    }
+    // Parse the JSON data directly from request
+    const body = await request.json();
+    console.log('Request body:', body);
 
     // Get the current session
     const session = await auth();
     console.log('Session:', session);
-
+    
     if (!session?.user?.id) {
       console.log('No authenticated user found');
       return NextResponse.json(
@@ -82,18 +46,19 @@ export async function POST(request: Request) {
     try {
       await mongoSession.withTransaction(async () => {
         console.log('Starting database transaction');
-
+        
         // Create the team
         const team = await Team.create([{
           name: teamName,
           userId: session.user.id,
         }], { session: mongoSession });
 
-        // Create players
+        // Create players with required fields from your schema
         const createdPlayers = await Player.create(
-          players.map((name: string, index: number) => ({
-            name,
-            number: index + 1,
+          players.map((player: { name: string, number?: number, position?: string }, index: number) => ({
+            name: player.name,
+            number: player.number || index + 1,
+            position: player.position || null,
             teamId: team[0]._id
           })),
           { session: mongoSession }
@@ -106,7 +71,6 @@ export async function POST(request: Request) {
         result = await Team.findById(team[0]._id)
           .populate('players')
           .lean();
-
         console.log('Created team:', result);
       });
 
@@ -118,7 +82,6 @@ export async function POST(request: Request) {
     } finally {
       await mongoSession.endSession();
     }
-
   } catch (error) {
     console.error('Registration error:', error);
     return NextResponse.json(
