@@ -46,7 +46,7 @@ export default function BlogPage() {
           Coming Soon
         </h1>
         <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          We're working hard to bring you exciting football news and insights. Stay tuned!
+          We&apos;re working hard to bring you exciting football news and insights. Stay tuned!
         </p>
         <Link 
           href="/"
