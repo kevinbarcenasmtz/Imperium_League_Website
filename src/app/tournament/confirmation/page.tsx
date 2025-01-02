@@ -59,7 +59,7 @@ export default function ConfirmationPage() {
           
           <div className="space-y-6">
             <p className="text-gray-700">
-              To confirm your team's registration, please send the registration fee via Zelle:
+              To confirm your team&apos;s registration, please send the registration fee via Zelle:
             </p>
 
             <div className="bg-white rounded-lg p-6 space-y-4">
