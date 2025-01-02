@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { hash } from 'bcryptjs';
-import { prisma } from '../../../../../prisma';
+import { connectDB } from '../../../../../lib/mongodb';
+import { User } from '../../../../../models/User';
 
 export async function POST(req: Request) {
   try {
@@ -14,11 +15,11 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check if user exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    // Connect to MongoDB
+    await connectDB();
 
+    // Check if user exists
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
         { error: 'User already exists' },
@@ -29,17 +30,16 @@ export async function POST(req: Request) {
     // Hash the password
     const hashedPassword = await hash(password, 12);
 
-    // Create user - simplified to just create the user
-    const user = await prisma.user.create({
-      data: {
-        email,
-        name,
-        password: hashedPassword,
-      },
+    // Create user
+    const user = await User.create({
+      email,
+      name,
+      password: hashedPassword,
     });
 
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = user;
+    // Convert to plain object and remove password
+    const userObject = user.toObject();
+    const { password: _, ...userWithoutPassword } = userObject;
 
     return NextResponse.json(
       {
@@ -48,7 +48,6 @@ export async function POST(req: Request) {
       },
       { status: 201 }
     );
-
   } catch (error) {
     console.error('Signup error:', error);
     return NextResponse.json(

@@ -1,180 +1,274 @@
-// app/api/teams/[teamId]/route.ts
+// File: src/app/api/teams/[teamId]/route.ts
 import { NextResponse } from "next/server";
 import { auth } from "../../../../../auth";
-import prisma from "../../../../../prisma";
+import { connectDB } from "../../../../../lib/mongodb";
+import { Team, Player } from "../../../../../models/Team";
+import mongoose from "mongoose";
 
-// GET endpoint to fetch team details
+// Type definitions
+type TeamResponse = {
+  success: boolean;
+  team?: any;  // Using 'any' since we don't have the exact Team type
+  message?: string;
+};
+
+type TeamRequest = {
+  name: string;
+  players: {
+    name: string;
+    number?: number | null;
+    position?: string | null;
+  }[];
+};
+
+// Helper Functions
+const createErrorResponse = (message: string, status: number) => {
+  return NextResponse.json(
+    {
+      success: false,
+      message,
+      timestamp: new Date().toISOString(),
+      code: status,
+    },
+    { status }
+  );
+};
+
+const logError = (error: any, context: Record<string, any>) => {
+  console.error('API Error:', {
+    ...context,
+    error,
+    timestamp: new Date().toISOString()
+  });
+};
+
+const validateTeamName = (name: string): string | null => {
+  if (!name?.trim() || name.length > 100) {
+    return "Team name must be between 1 and 100 characters";
+  }
+  return null;
+};
+
+const validatePlayer = (player: TeamRequest["players"][0]): string | null => {
+  if (player.number !== null && player.number !== undefined) {
+    if (!Number.isInteger(player.number) || player.number < 0 || player.number > 99) {
+      return "Player number must be between 0 and 99";
+    }
+  }
+  if (player.position && player.position.length > 50) {
+    return "Position cannot exceed 50 characters";
+  }
+  return null;
+};
+
+// Route Handlers
 export async function GET(
   request: Request,
   { params }: { params: { teamId: string } }
 ) {
+  let userId: string | undefined;
+
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
-      );
+    await connectDB();
+    
+
+    // Add early validation for teamId
+    if (!params.teamId || params.teamId === 'undefined') {
+      return createErrorResponse("Invalid team ID provided", 400);
     }
 
-    const team = await prisma.team.findUnique({
-      where: { 
-        id: params.teamId,
-        userId: session.user.id 
-      },
-      include: { 
-        players: true 
-      },
+    // Validate if it's a valid MongoDB ObjectId
+    if (!mongoose.isValidObjectId(params.teamId)) {
+      return createErrorResponse("Invalid team ID format", 400);
+    }
+    const session = await auth();
+    userId = session?.user?.id;
+    
+    if (!userId) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
+    // Add debug logging
+    console.log('Debug: Attempting to find team with params:', {
+      teamId: params.teamId,
+      userId
     });
 
+    const team = await Team.findOne({
+      _id: params.teamId,
+      userId
+    })
+    .populate('players')
+    .lean();
+
+    // Add debug logging
+    console.log('Debug: Found team:', team);
+
     if (!team) {
-      return NextResponse.json(
-        { success: false, message: "Team not found" },
-        { status: 404 }
-      );
+      return createErrorResponse("Team not found", 404);
     }
 
     return NextResponse.json({ success: true, team });
   } catch (error) {
-    console.error('Error in GET:', error);
-    return NextResponse.json(
-      { success: false, message: "Failed to fetch team details" },
-      { status: 500 }
-    );
+    // Enhanced error logging
+    console.error('Detailed Error in GET /api/teams/[teamId]:', {
+      error: error instanceof Error ? {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      } : error,
+      params,
+      userId
+    });
+    return createErrorResponse("Failed to fetch team details", 500);
   }
 }
 
-// PUT endpoint to update team details
 export async function PUT(
   request: Request,
   { params }: { params: { teamId: string } }
 ) {
+  let userId: string | undefined;
+
   try {
+    await connectDB();
+    
     const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
-      );
+    userId = session?.user?.id;
+    
+    if (!userId) {
+      return createErrorResponse("Unauthorized", 401);
     }
 
-    const body = await request.json();
+    const body = await request.json() as TeamRequest;
 
-    // Validate request body
-    if (!body.name || !Array.isArray(body.players)) {
-      return NextResponse.json(
-        { success: false, message: "Invalid request data" },
-        { status: 400 }
-      );
+    // Validate team name
+    const nameError = validateTeamName(body.name);
+    if (nameError) {
+      return createErrorResponse(nameError, 400);
+    }
+
+    // Validate players array
+    if (!Array.isArray(body.players) || body.players.length > 50) {
+      return createErrorResponse("Invalid players data or too many players (max 50)", 400);
+    }
+
+    // Validate each player
+    for (const player of body.players) {
+      const playerError = validatePlayer(player);
+      if (playerError) {
+        return createErrorResponse(playerError, 400);
+      }
     }
 
     // Verify team ownership
-    const existingTeam = await prisma.team.findUnique({
-      where: {
-        id: params.teamId,
-        userId: session.user.id,
-      },
+    const existingTeam = await Team.findOne({
+      _id: params.teamId,
+      userId,
     });
 
     if (!existingTeam) {
-      return NextResponse.json(
-        { success: false, message: "Team not found or unauthorized" },
-        { status: 404 }
-      );
+      return createErrorResponse("Team not found or unauthorized", 404);
     }
 
-    // Update team and players in a transaction
-    const updatedTeam = await prisma.$transaction(async (tx) => {
-      // Delete existing players
-      await tx.player.deleteMany({
-        where: {
-          teamId: params.teamId,
-        },
-      });
+    const mongoSession = await mongoose.startSession();
+    let updatedTeam;
 
-      // Update team and create new players
-      return await tx.team.update({
-        where: {
-          id: params.teamId,
-        },
-        data: {
-          name: body.name,
-          players: {
-            create: body.players.map((player: { 
-              name: string; 
-              number?: number | null;
-              position?: string | null;
-            }) => ({
-              name: player.name,
-              number: player.number ?? null,
-              position: player.position ?? null,
-            })),
+    try {
+      await mongoSession.withTransaction(async () => {
+        await Player.deleteMany({
+          teamId: params.teamId
+        }, { session: mongoSession });
+
+        const newPlayers = await Player.create(
+          body.players.map(player => ({
+            name: player.name.trim(),
+            number: player.number ?? null,
+            position: player.position?.trim() ?? null,
+            teamId: params.teamId
+          })),
+          { session: mongoSession }
+        );
+
+        updatedTeam = await Team.findByIdAndUpdate(
+          params.teamId,
+          {
+            name: body.name.trim(),
+            players: newPlayers.map(player => player._id)
           },
-        },
-        include: {
-          players: true,
-        },
+          { 
+            new: true,
+            session: mongoSession 
+          }
+        ).populate('players');
       });
-    });
 
-    return NextResponse.json({
-      success: true,
-      team: updatedTeam,
-    });
+      return NextResponse.json({
+        success: true,
+        team: updatedTeam
+      });
+    } finally {
+      await mongoSession.endSession();
+    }
   } catch (error) {
-    console.error('Error in PUT /api/teams/[teamId]:', error);
-    return NextResponse.json(
-      { success: false, message: "Failed to update team" },
-      { status: 500 }
-    );
+    logError(error, {
+      endpoint: 'PUT /api/teams/[teamId]',
+      teamId: params.teamId,
+      userId
+    });
+    return createErrorResponse("Failed to update team", 500);
   }
 }
 
-// DELETE endpoint to remove a team
 export async function DELETE(
   request: Request,
   { params }: { params: { teamId: string } }
 ) {
+  let userId: string | undefined;
+
   try {
+    await connectDB();
+    
     const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
-      );
+    userId = session?.user?.id;
+    
+    if (!userId) {
+      return createErrorResponse("Unauthorized", 401);
     }
 
-    // Verify team ownership before deletion
-    const existingTeam = await prisma.team.findUnique({
-      where: {
-        id: params.teamId,
-        userId: session.user.id,
-      },
+    const existingTeam = await Team.findOne({
+      _id: params.teamId,
+      userId,
     });
 
     if (!existingTeam) {
-      return NextResponse.json(
-        { success: false, message: "Team not found or unauthorized" },
-        { status: 404 }
-      );
+      return createErrorResponse("Team not found or unauthorized", 404);
     }
 
-    // Delete the team (players will be automatically deleted due to cascade delete)
-    await prisma.team.delete({
-      where: {
-        id: params.teamId,
-      },
-    });
+    const mongoSession = await mongoose.startSession();
 
-    return NextResponse.json({
-      success: true,
-      message: "Team deleted successfully"
-    });
+    try {
+      await mongoSession.withTransaction(async () => {
+        await Player.deleteMany(
+          { teamId: params.teamId },
+          { session: mongoSession }
+        );
+        await Team.findByIdAndDelete(params.teamId, { session: mongoSession });
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: "Team deleted successfully"
+      });
+    } finally {
+      await mongoSession.endSession();
+    }
   } catch (error) {
-    console.error('Error in DELETE /api/teams/[teamId]:', error);
-    return NextResponse.json(
-      { success: false, message: "Failed to delete team" },
-      { status: 500 }
-    );
+    logError(error, {
+      endpoint: 'DELETE /api/teams/[teamId]',
+      teamId: params.teamId,
+      userId
+    });
+    return createErrorResponse("Failed to delete team", 500);
   }
 }

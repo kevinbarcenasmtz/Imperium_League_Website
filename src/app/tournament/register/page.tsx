@@ -1,20 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import { Container } from "@/components/Container";
+import { useRouter } from "next/navigation";
 
 const RegisterTeamPage = () => {
+  const router = useRouter();
   const [teamName, setTeamName] = useState("");
   const [teamCaptain, setTeamCaptain] = useState("");
   const [players, setPlayers] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setSuccess(false);
 
     try {
       console.log('Starting form submission');
@@ -33,7 +33,7 @@ const RegisterTeamPage = () => {
 
       console.log('Sending data:', formData);
 
-      const response = await fetch('/api/tournament/register', {  // Updated API path
+      const response = await fetch('/api/tournament/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,10 +50,8 @@ const RegisterTeamPage = () => {
         throw new Error(data.message || 'Failed to register team');
       }
 
-      setSuccess(true);
-      setTeamName("");
-      setTeamCaptain("");
-      setPlayers("");
+      // Redirect to confirmation page with team details
+      router.push(`/tournament/confirmation?team=${encodeURIComponent(teamName)}&captain=${encodeURIComponent(teamCaptain)}`);
     } catch (err) {
       console.error('Form submission error:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -76,12 +74,6 @@ const RegisterTeamPage = () => {
         {error && (
           <div className="bg-red-50 text-red-500 p-4 rounded-lg mb-6">
             {error}
-          </div>
-        )}
-
-        {success && (
-          <div className="bg-green-50 text-green-500 p-4 rounded-lg mb-6">
-            Team successfully registered!
           </div>
         )}
 

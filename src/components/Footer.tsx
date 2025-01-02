@@ -85,7 +85,7 @@ export function Footer() {
             </h4>
             <div className="flex mt-5 space-x-4">
               <a
-                href="https://www.instagram.com/imperium____fc/"
+                href="https://www.instagram.com/empirefutsalatx/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-[#ED2939] dark:text-gray-400"

@@ -7,8 +7,8 @@ import {
   BanknotesIcon,
 } from "@heroicons/react/24/solid";
 
-import benefitOneImg from "../../public/pickup_photos/IMG_2475.JPG";
-import benefitTwoImg from "../../public/pickup_photos/IMG_2534.JPG";
+import benefitOneImg from "../../public/pickup_photos/IMG_3916.jpg";
+import benefitTwoImg from "../../public/pickup_photos/IMG_4323.jpg";
 
 
 const benefitOne = {
