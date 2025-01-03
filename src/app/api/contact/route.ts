@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { type Transporter } from 'nodemailer';
 
 export async function POST(request: Request) {
   try {
@@ -12,19 +13,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const transporter = nodemailer.createTransport({
+    const transporter: Transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
       secure: false,
       auth: {
-        user: process.env.GMAIL_USER, // Your Gmail address
-        pass: process.env.GMAIL_APP_PASSWORD,     // Your Gmail App Password
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
       }
     });
 
     await transporter.sendMail({
-      from: process.env.GMAIL_USER,   // Your Gmail address
-      to: process.env.RECIPIENT_EMAIL,    // Where you want to receive the emails
+      from: process.env.GMAIL_USER,
+      to: process.env.RECIPIENT_EMAIL,
       subject: `New Contact Form Submission from ${name}`,
       text: `
         Name: ${name}
