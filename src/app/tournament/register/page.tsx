@@ -17,9 +17,6 @@ const RegisterTeamPage = () => {
     setError(null);
 
     try {
-      console.log('Starting form submission');
-      
-      // Format the players data
       const playersList = players
         .split('\n')
         .map(player => player.trim())
@@ -31,8 +28,6 @@ const RegisterTeamPage = () => {
         players: playersList
       };
 
-      console.log('Sending data:', formData);
-
       const response = await fetch('/api/tournament/register', {
         method: 'POST',
         headers: {
@@ -40,20 +35,15 @@ const RegisterTeamPage = () => {
         },
         body: JSON.stringify(formData),
       });
-
-      console.log('Response status:', response.status);
       
       const data = await response.json();
-      console.log('Response data:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Failed to register team');
       }
 
-      // Redirect to confirmation page with team details
       router.push(`/tournament/confirmation?team=${encodeURIComponent(teamName)}&captain=${encodeURIComponent(teamCaptain)}`);
     } catch (err) {
-      console.error('Form submission error:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
@@ -62,24 +52,24 @@ const RegisterTeamPage = () => {
 
   return (
     <Container>
-      <div className="max-w-2xl mx-auto py-8">
+      <div className="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">Register Your Team</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold mb-4 dark:text-white">Register Your Team</h1>
+          <p className="text-gray-600 dark:text-gray-300">
             Fill out the form below to register your team for the tournament. 
-            We can&apost wait to see you on the field!
+            We can&apos;t wait to see you on the field!
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-500 p-4 rounded-lg mb-6">
+          <div className="bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400 p-4 rounded-lg mb-6">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="teamName" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="teamName" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Team Name
             </label>
             <input
@@ -88,12 +78,14 @@ const RegisterTeamPage = () => {
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+              className="w-full px-4 py-2 border dark:border-gray-700 rounded-lg 
+                focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label htmlFor="teamCaptain" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="teamCaptain" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Team Captain Name
             </label>
             <input
@@ -102,12 +94,14 @@ const RegisterTeamPage = () => {
               value={teamCaptain}
               onChange={(e) => setTeamCaptain(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+              className="w-full px-4 py-2 border dark:border-gray-700 rounded-lg 
+                focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label htmlFor="players" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="players" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               List of Players (one per line)
             </label>
             <textarea
@@ -116,7 +110,9 @@ const RegisterTeamPage = () => {
               onChange={(e) => setPlayers(e.target.value)}
               required
               rows={4}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ED2939]"
+              className="w-full px-4 py-2 border dark:border-gray-700 rounded-lg 
+                focus:outline-none focus:ring-2 focus:ring-[#ED2939] dark:focus:ring-[#ED2939]
+                bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
               placeholder="Enter each player's name on a new line"
             />
           </div>
@@ -125,7 +121,7 @@ const RegisterTeamPage = () => {
             type="submit"
             disabled={loading}
             className={`w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md transition duration-200 
-              ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#C62631]'}`}
+              ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#C62631] dark:hover:bg-[#C62631]'}`}
           >
             {loading ? 'Submitting...' : 'Submit'}
           </button>

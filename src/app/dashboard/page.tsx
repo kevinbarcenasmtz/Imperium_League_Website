@@ -11,7 +11,8 @@ import {
   FaUser, 
   FaEnvelope,
   FaSave,
-  FaGoogle 
+  FaGoogle,
+  FaCheckCircle
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -296,6 +297,22 @@ export default function Dashboard() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* Link to Confirmation Page */}
+      <section className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md mb-16">
+        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
+          Confirm Your Payment
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-6">
+          Visit the confirmation page to complete your payment.
+        </p>
+        <Link
+          href="/confirmation"
+          className="px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 flex items-center justify-center transition-colors duration-200"
+        >
+          <FaCheckCircle className="mr-2" /> Go to Confirmation Page
+        </Link>
       </section>
     </Container>
   );

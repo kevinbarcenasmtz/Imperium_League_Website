@@ -1,5 +1,4 @@
 "use client";
-//src\app\tournament\confirmation\page.tsx
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/Container";
 import { FaCheckCircle } from "react-icons/fa";
@@ -7,8 +6,6 @@ import { Suspense } from "react";
 
 function ConfirmationContent() {
   const searchParams = useSearchParams();
-  const teamName = searchParams.get("team");
-  const captain = searchParams.get("captain");
   const paypalInfo = {
     email: "empirefootballgroupllc@gmail.com",
     qrCodeUrl: "/img/qrcode.png",
@@ -29,23 +26,8 @@ function ConfirmationContent() {
             Registration Successful!
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Thank you for registering {teamName}!
+            Thank you for registering!
           </p>
-        </div>
-
-        {/* Registration Details */}
-        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 sm:p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-6 dark:text-white">Registration Details</h2>
-          <div className="space-y-4">
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">Team Name</p>
-              <p className="text-lg font-medium dark:text-white">{teamName}</p>
-            </div>
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">Team Captain</p>
-              <p className="text-lg font-medium dark:text-white">{captain}</p>
-            </div>
-          </div>
         </div>
 
         {/* Payment Information */}
@@ -79,10 +61,12 @@ function ConfirmationContent() {
                 <img src={paypalInfo.qrCodeUrl} alt="PayPal QR Code" className="rounded-lg" />
               </div>
 
-              <div>
+            <div>
                 <p className="text-gray-600 dark:text-gray-400 mb-2">Public Profile</p>
                 <p className="text-xl font-semibold dark:text-white">{paypalInfo.link}</p>
               </div>
+
+
             </div>
 
             <div className="text-gray-600 dark:text-gray-300">
@@ -102,13 +86,13 @@ function ConfirmationContent() {
 
 export default function ConfirmationPage() {
   return (
-    <Suspense fallback={
-      <Container>
-        <div className="max-w-3xl mx-auto py-12 text-center dark:text-white">
-          Loading...
-        </div>
-      </Container>
-    }>
+    <Suspense
+      fallback={
+        <Container>
+          <div className="max-w-3xl mx-auto py-12 text-center dark:text-white">Loading...</div>
+        </Container>
+      }
+    >
       <ConfirmationContent />
     </Suspense>
   );
