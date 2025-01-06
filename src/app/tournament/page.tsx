@@ -88,7 +88,7 @@ const TournamentInfoPage = () => {
             <h3 className="font-semibold text-[#ED2939] mb-2">Additional Regulations</h3>
             <ul className="space-y-2 text-gray-700">
               <li>• All players must wear shin guards</li>
-              <li>• No metal cleats allowed</li>
+              <li>• Cleats allowed (no metal studs on the bottom of your cleats)</li>
               <li>• Teams must wear matching uniforms</li>
               <li>• Minimum 3 players needed to start match</li>
               <li>• Yellow card = 2-minute suspension</li>
@@ -98,9 +98,36 @@ const TournamentInfoPage = () => {
         </div>
       </div>
 
+      {/* Eligibility Section */}
+      <div className="max-w-3xl mx-auto mb-8 md:mb-12">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center dark:text-white">
+          Player Eligibility
+        </h2>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="text-gray-700">
+            <p className="mb-4">
+              For this inaugural tournament (V1), participation is open to male players aged 18 and above. 
+              We are excited to establish this tournament series and plan to expand our divisions in future events 
+              to include more categories and opportunities for our entire soccer community.
+            </p>
+            <h3 className="font-semibold text-[#ED2939] mb-2">Current Requirements</h3>
+            <ul className="space-y-2">
+              <li>• Must be 18 years or older on tournament date</li>
+              <li>• Valid photo ID required at check-in</li>
+              <li>• Must sign liability waiver before participating</li>
+            </ul>
+            <p className="mt-4 text-sm italic">
+              Stay tuned for announcements about future tournaments as we expand to include more divisions and categories. 
+              We are committed to growing this event to celebrate the diversity of our soccer community.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
       {/* Image container */}
       <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 mb-8 md:mb-12">
-        <div className="w-full sm:w-auto max-w-[400px]">
+        {/* <div className="w-full sm:w-auto max-w-[400px]">
           <Image
             src="/img/IMG_3877.jpg"
             alt="Tournament Banner 1"
@@ -113,6 +140,15 @@ const TournamentInfoPage = () => {
         <div className="w-full sm:w-auto max-w-[350px]">
           <Image
             src="/img/8CF8F643-7272-4EE1-912D-3CBD73D9DBF5.jpg"
+            alt="Tournament Banner 2"
+            width={350}
+            height={400}
+            className="rounded-lg shadow-md w-full h-auto object-cover"
+          />
+        </div> */}
+        <div className="w-full sm:w-auto max-w-[350px]">
+          <Image
+            src="/img/empireCashCup_flyer.png"
             alt="Tournament Banner 2"
             width={350}
             height={400}

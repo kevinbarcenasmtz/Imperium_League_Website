@@ -24,17 +24,17 @@ export function Footer() {
                 className="flex items-center space-x-2 text-2xl font-medium text-[#ED2939] dark:text-gray-100"
               >
                 <Image
-                  src="/img/team_logo.jpg"
+                  src="/img/empire_logo.png"
                   alt="Empire League Logo"
                   width="32"
                   height="32"
                   className="w-8"
                 />
-                <span>Empire League</span>
+                <span>Empire Football League</span>
               </Link>
             </div>
             <p className="max-w-md mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-              Empire League is your go-to destination for community soccer.
+              Empire Football League is your go-to destination for community soccer.
               Enjoy competitive, organized, and fun soccer leagues with no
               hidden fees or hassle—just pure love for the game.
             </p>
@@ -100,7 +100,8 @@ export function Footer() {
 
         {/* Footer Bottom */}
         <div className="py-6 mt-10 text-sm text-center text-gray-600 dark:text-gray-400">
-          Copyright © {new Date().getFullYear()}. Built with ♥ by Empire League.
+          Copyright © {new Date().getFullYear()}. Built with ♥ by Kevin Barcenas-Martinez.
+          For inquiries contact: kevinbarcenas2022@gmail.com
           All rights reserved.
         </div>
       </Container>

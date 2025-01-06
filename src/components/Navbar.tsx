@@ -78,7 +78,7 @@ export const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center space-x-2 flex-grow lg:flex-grow-0">
           <Image
-            src="/img/team_logo.jpg"
+            src="/img/empire_logo.png"
             width={24}
             height={24}
             alt="Team Logo"

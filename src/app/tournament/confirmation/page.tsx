@@ -11,7 +11,7 @@ function ConfirmationContent() {
   const paypalInfo = {
     email: "empirefootballgroupllc@gmail.com",
     qrCodeUrl: "/img/qrcode.png",
-    amount: "300.00",
+    amount: "250.00",
     description: "Team Registration Fee",
     link: "https://www.paypal.com/biz/profile/empirefootballgroup",
   };
