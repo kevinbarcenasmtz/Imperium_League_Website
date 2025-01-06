@@ -148,7 +148,7 @@ const TournamentInfoPage = () => {
         </div> */}
         <div className="w-full sm:w-auto max-w-[350px]">
           <Image
-            src="/img/empireCashCup_flyer.png"
+            src="/img/empireCashCup_Flyer.png"
             alt="Tournament Banner 2"
             width={350}
             height={400}
