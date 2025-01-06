@@ -12,7 +12,7 @@ const CalendarPage = () => {
       {/* Header Section */}
       <div className="text-center mb-12">
         <h1 className="text-5xl font-extrabold text-[#ED2939] mb-4">Calendar</h1>
-        <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+        <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto dark:text-white">
           Stay updated with all the events, schedules, and tournaments happening throughout the season. Don’t miss out!
         </p>
       </div>

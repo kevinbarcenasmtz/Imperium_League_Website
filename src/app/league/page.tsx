@@ -1,5 +1,6 @@
 "use client";
 import { Container } from "@/components/Container";
+import Link from "next/link";
 
 export default function LeaguesPage() {
   // Sample data for leagues (replace with actual API data or database query)
@@ -12,40 +13,21 @@ export default function LeaguesPage() {
   ];
 
   return (
-    <Container className="py-12">
-      {/* Header Section */}
-      <section className="text-center mb-12">
-        <h1 className="text-5xl font-extrabold text-[#ED2939] mb-4">Leagues</h1>
-        <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
-          Explore some of the our  soccer leagues in Austin, featuring incredible teams, diverse backgrounds, and unparalleled passion for the game.
+    <Container className="py-12 relative min-h-[50vh]">
+      {/* Coming Soon Overlay */}
+      <div className="absolute inset-0 overflow-hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-10 flex flex-col items-center justify-start pt-20 sm:justify-center text-center px-4">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-[#ED2939] mb-6 animate-pulse">
+          Coming Soon
+        </h1>
+        <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+          We&apos;re working hard to bring you exciting football news and insights. Stay tuned!
         </p>
-      </section>
-
-      {/* League Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {leagues.map((league, index) => (
-          <div
-            key={index}
-            className="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200"
-          >
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">{league.name}</h2>
-            <p className="text-gray-600 mb-1">
-              <span className="font-medium">Founded:</span> {league.founded}
-            </p>
-            <p className="text-gray-600 mb-1">
-              <span className="font-medium">Teams:</span> {league.teams}
-            </p>
-            <p className="text-gray-600">
-              <span className="font-medium">Country:</span> {league.country}
-            </p>
-            <button
-              onClick={() => alert(`You clicked on ${league.name}`)} // Custom action, replace as needed
-              className="mt-4 w-full px-4 py-2 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200"
-            >
-              View League Details
-            </button>
-          </div>
-        ))}
+        <Link
+          href="/"
+          className="px-6 py-3 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200"
+        >
+          Return Home
+        </Link>
       </div>
     </Container>
   );

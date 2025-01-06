@@ -138,8 +138,8 @@ export const Navbar = () => {
               </Disclosure.Button>
 
               {/* Fullscreen Menu */}
-              <Disclosure.Panel className="fixed inset-0 z-[100] bg-[#D78A91] dark:bg-gray-900 lg:hidden">
-                <div className="flex flex-col items-start justify-start w-full h-full p-6">
+              <Disclosure.Panel className="fixed inset-0 z-[100] bg-[#D78A91] dark:bg-gray-700 lg:hidden">
+                <div className="flex flex-col items-start justify-start w-full h-full p-4">
                   {/* Close Button */}
                   <button
                     aria-label="Close Menu"
@@ -166,12 +166,12 @@ export const Navbar = () => {
                         key={index}
                         href={item.href}
                         onClick={() => close()}
-                        className="w-full px-4 py-2 text-sm text-gray-700 border-b dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="w-full px-2 py-2 text-md text-gray-700 border-b dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         {item.name}
                       </Link>
                     ))}
-                    <div className="w-full px-4 py-2 mt-2">
+                    <div className="w-full px-4 py-2 mt-4">
                       <AuthButtons onClose={() => close()} />
                     </div>
                   </div>

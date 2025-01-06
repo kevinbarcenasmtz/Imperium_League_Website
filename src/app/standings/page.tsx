@@ -1,4 +1,5 @@
 import { Container } from "@/components/Container";
+import Link from "next/link";
 
 export default function StandingsPage() {
   // Sample data for standings (replace with API or database call)
@@ -11,49 +12,22 @@ export default function StandingsPage() {
   ];
 
   return (
-    <Container className="py-12">
-      {/* Header Section */}
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-extrabold text-[#ED2939] mb-4">League Standings</h1>
-        <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
-          Keep track of the league&apos;s top teams, their matches, and their points as they compete for glory!
-        </p>
-      </div>
-
-      {/* Table Section */}
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-200 shadow-md">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Position</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Team</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Played</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Won</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Drawn</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Lost</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-800">Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            {standings.map((team, index) => (
-              <tr
-                key={team.position}
-                className={`text-sm text-gray-700 ${
-                  index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                } hover:bg-gray-100 transition duration-200`}
-              >
-                <td className="px-4 py-3">{team.position}</td>
-                <td className="px-4 py-3 font-medium text-gray-900">{team.team}</td>
-                <td className="px-4 py-3">{team.played}</td>
-                <td className="px-4 py-3">{team.won}</td>
-                <td className="px-4 py-3">{team.drawn}</td>
-                <td className="px-4 py-3">{team.lost}</td>
-                <td className="px-4 py-3 font-bold text-[#ED2939]">{team.points}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Container>
+    <Container className="py-12 relative min-h-[50vh]">
+    {/* Coming Soon Overlay */}
+    <div className="absolute inset-0 overflow-hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-10 flex flex-col items-center justify-start pt-20 sm:justify-center text-center px-4">
+      <h1 className="text-4xl md:text-6xl font-extrabold text-[#ED2939] mb-6 animate-pulse">
+        Coming Soon
+      </h1>
+      <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+        We&apos;re working hard to bring you exciting football news and insights. Stay tuned!
+      </p>
+      <Link
+        href="/"
+        className="px-6 py-3 bg-[#ED2939] text-white font-semibold rounded-md hover:bg-[#C62631] transition duration-200"
+      >
+        Return Home
+      </Link>
+    </div>
+  </Container>
   );
 }

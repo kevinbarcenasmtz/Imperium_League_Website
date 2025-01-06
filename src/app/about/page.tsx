@@ -11,7 +11,7 @@ export default function AboutUs() {
         <h1 className="text-5xl font-extrabold text-[#ED2939] mb-4">
           WELCOME TO EMPIRE FOOTBALL LEAGUE
         </h1>
-        <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto mb-8">
+        <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto mb-8 dark:text-white">
           Where Passion Meets Play: Your Premier Destination for Soccer Leagues.
           At Empire Football League, we’re more than just a soccer league – we’re a vibrant
           community of passionate players dedicated to the beautiful game. With a focus on
@@ -41,7 +41,7 @@ export default function AboutUs() {
 
       {/* What Sets Us Apart */}
       <section className="mb-16">
-        <h2 className="text-4xl font-semibold text-center text-gray-800 mb-10">
+        <h2 className="text-4xl font-semibold text-center text-gray-800 mb-10 dark:text-white">
           UNLOCK YOUR SOCCER SKILLS
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -49,7 +49,7 @@ export default function AboutUs() {
           <div className="flex flex-col items-center text-center">
             <FaUsers className="text-6xl text-[#ED2939] mb-4" />
             <h3 className="text-xl font-semibold mb-2">Diverse Leagues</h3>
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-white">
               From recreational to competitive, co-ed to gender-specific, our leagues cater to
               various preferences and playing styles.
             </p>
@@ -58,7 +58,7 @@ export default function AboutUs() {
           <div className="flex flex-col items-center text-center">
             <FaMapMarkerAlt className="text-6xl text-[#ED2939] mb-4" />
             <h3 className="text-xl font-semibold mb-2">Top-Notch Facilities</h3>
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-white">
               We meticulously select premier playing fields to ensure a quality experience for all participants.
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function AboutUs() {
           <div className="flex flex-col items-center text-center">
             <FaFutbol className="text-6xl text-[#ED2939] mb-4" />
             <h3 className="text-xl font-semibold mb-2">Passionate Community</h3>
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-white">
               Become part of a tight-knit community of soccer enthusiasts who share your love for the game.
             </p>
           </div>
@@ -74,7 +74,7 @@ export default function AboutUs() {
           <div className="flex flex-col items-center text-center">
             <FaHandshake className="text-6xl text-[#ED2939] mb-4" />
             <h3 className="text-xl font-semibold mb-2">Professionalism</h3>
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-white">
               With organized schedules, experienced referees, and transparent communication, we deliver a professional soccer experience.
             </p>
           </div>
