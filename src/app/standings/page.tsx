@@ -12,7 +12,7 @@ export default function StandingsPage() {
   ];
 
   return (
-    <Container className="py-12 relative min-h-[50vh]">
+    <Container className="py-12 relative min-h-[60vh]">
     {/* Coming Soon Overlay */}
     <div className="absolute inset-0 overflow-hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-10 flex flex-col items-center justify-start pt-20 sm:justify-center text-center px-4">
       <h1 className="text-4xl md:text-6xl font-extrabold text-[#ED2939] mb-6 animate-pulse">
