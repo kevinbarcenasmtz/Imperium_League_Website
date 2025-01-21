@@ -44,7 +44,7 @@ const CalendarPage = () => {
             Empire Cash Prize V1 Tournament
           </h2>
           <p className="text-gray-600 mb-1">
-            <span className="font-medium">Date:</span> January 25-26, 2024
+            <span className="font-medium">Date:</span> Coming Soon
           </p>
           <p className="text-gray-600 mb-4">
             <span className="font-medium">Location:</span> South Austin, Slaughter Ln
