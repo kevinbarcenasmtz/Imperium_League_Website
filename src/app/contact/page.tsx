@@ -4,39 +4,22 @@ import { Container } from '@/components/Container';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [responseMessage, setResponseMessage] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setResponseMessage(null);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setResponseMessage(result.message || 'Your message has been sent successfully!');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        const errorData = await response.json();
-        setResponseMessage(errorData.error || 'Failed to send the message.');
-      }
-    } catch (error) {
-      setResponseMessage('An error occurred. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    
+    // Create mailto URL with form data
+    const subject = `Contact from ${formData.name}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
+    const mailtoUrl = `mailto:empirefootballgroupllc@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open the user's email client
+    window.location.href = mailtoUrl;
   };
 
   return (
@@ -47,16 +30,12 @@ export default function ContactPage() {
           Contact Us
         </h1>
         <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-          Have questions or feedback? Reach out to us using the form below, and we’ll get back to you as soon as possible.
+          Have questions or feedback? Reach out to us using the form below, and we&apos;ll get back to you as soon as possible.
         </p>
-      </div>
-
-      {/* Response Message */}
-      {responseMessage && (
-        <div className="mb-6 text-center text-green-600 dark:text-green-400 font-semibold">
-          {responseMessage}
+        <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 rounded-lg max-w-3xl mx-auto">
+          <p>Note: This form will open your email client to send your message while our contact system is being updated.</p>
         </div>
-      )}
+      </div>
 
       {/* Contact Form */}
       <form
@@ -125,15 +104,21 @@ export default function ContactPage() {
           <div className="flex justify-center">
             <button
               type="submit"
-              disabled={isSubmitting}
-              className={`px-6 py-3 text-white font-semibold rounded-md ${
-                isSubmitting
-                  ? 'bg-gray-400 dark:bg-gray-600'
-                  : 'bg-[#ED2939] hover:bg-[#C62631] dark:bg-[#FF7070] dark:hover:bg-[#D44A4A]'
-              } focus:outline-none transition duration-200`}
+              className="px-6 py-3 text-white font-semibold rounded-md bg-[#ED2939] hover:bg-[#C62631] dark:bg-[#FF7070] dark:hover:bg-[#D44A4A] focus:outline-none transition duration-200"
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              Send Message via Email
             </button>
+          </div>
+          
+          {/* Direct Email Link */}
+          <div className="text-center mt-4 text-gray-600 dark:text-gray-400 text-sm">
+            Or email us directly at:{' '}
+            <a 
+              href="mailto:empirefootballgroupllc@gmail.com"
+              className="text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              empirefootballgroupllc@gmail.com
+            </a>
           </div>
         </div>
       </form>
